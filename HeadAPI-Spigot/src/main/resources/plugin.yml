@@ -1,0 +1,9 @@
+name: HeadAPI
+version: ${project.version}
+main: com.dolphln.headapi.HeadAPI
+api-version: 1.16
+prefix: HeadAPI
+softdepend: [ PlaceholdersAPI, SkinsRestorer ]
+authors: [ Dolphln ]
+description: HeadAPI
+website: dolphln.com
