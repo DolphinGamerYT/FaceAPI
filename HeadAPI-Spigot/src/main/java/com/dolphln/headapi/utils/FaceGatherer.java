@@ -31,17 +31,21 @@ public class FaceGatherer {
         /*if (plugin.getSkinGetter().isHook() && plugin.getSkinGetter().playerHasSkin(p)) {
             plugin.getSkinGetter().getPlayerSkin(p);
         }*/
-        image = getPlayerImage(p);
+        if (plugin.getHeadCache().isPlayerInCache(p)) {
+            return plugin.getHeadCache().getPlayerInCache(p);
+        }
+        HeadImage head = new HeadImage(getPlayerImage(p), 8);
+        plugin.getHeadCache().addPlayerInCache(p, head);
 
-        return new HeadImage(image, 8);
+        return head;
     }
 
     private BufferedImage getPlayerImage(Player p) {
         int size = 8;
 
         URL head_image;
-        if (Bukkit.getServer().getOnlineMode()) {
 
+        if (Bukkit.getServer().getOnlineMode()) {
             head_image = getUrl(Integer.toString(size), p.getUniqueId().toString());
         } else {
             head_image = getUrl(Integer.toString(size), p.getName());
