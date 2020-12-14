@@ -1,5 +1,6 @@
 package com.dolphln.headapi;
 
+import com.dolphln.headapi.hooks.HeadPlaceholders;
 import com.dolphln.headapi.hooks.SkinGetter;
 import com.dolphln.headapi.utils.FaceGatherer;
 import com.dolphln.headapi.utils.HeadCache;
@@ -23,17 +24,15 @@ public final class HeadAPI extends JavaPlugin implements Listener {
         this.faceGatherer = new FaceGatherer(this);
         this.skinGetter = new SkinGetter(this);
         this.headCache = new HeadCache(this);
+
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
+            new HeadPlaceholders(this).register();
+        }
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-    }
-
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent e) {
-        e.setJoinMessage(null);
-        faceGatherer.getHeadImage(e.getPlayer(), 12).getFormattedLines();
     }
 
     public Boolean useHTMLColors() {
