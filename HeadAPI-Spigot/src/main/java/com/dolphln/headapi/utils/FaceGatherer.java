@@ -24,17 +24,17 @@ public class FaceGatherer {
         this.plugin = plugin;
     }
 
-    public HeadImage getHeadImage(Player p) {
+    public HeadImage getHeadImage(Player p, int size) {
         BufferedImage image;
 
         // SkinsRestorer Support going to be added later
         /*if (plugin.getSkinGetter().isHook() && plugin.getSkinGetter().playerHasSkin(p)) {
             plugin.getSkinGetter().getPlayerSkin(p);
         }*/
-        if (plugin.getHeadCache().isPlayerInCache(p)) {
-            return plugin.getHeadCache().getPlayerInCache(p);
+        if (plugin.getHeadCache().isPlayerInCache(p, size)) {
+            return plugin.getHeadCache().getPlayerInCache(p, size);
         }
-        HeadImage head = new HeadImage(getPlayerImage(p), 8);
+        HeadImage head = new HeadImage(getPlayerImage(p), size);
         plugin.getHeadCache().addPlayerInCache(p, head);
 
         return head;
