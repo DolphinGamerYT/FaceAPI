@@ -25,8 +25,6 @@ public class FaceGatherer {
     }
 
     public HeadImage getHeadImage(Player p, int size) {
-        BufferedImage image;
-
         // SkinsRestorer Support going to be added later
         /*if (plugin.getSkinGetter().isHook() && plugin.getSkinGetter().playerHasSkin(p)) {
             plugin.getSkinGetter().getPlayerSkin(p);
@@ -34,15 +32,14 @@ public class FaceGatherer {
         if (plugin.getHeadCache().isPlayerInCache(p, size)) {
             return plugin.getHeadCache().getPlayerInCache(p, size);
         }
-        HeadImage head = new HeadImage(getPlayerImage(p), size);
+        BufferedImage image = getPlayerImage(p, size);
+        HeadImage head = new HeadImage(image, size);
         plugin.getHeadCache().addPlayerInCache(p, head);
 
         return head;
     }
 
-    private BufferedImage getPlayerImage(Player p) {
-        int size = 8;
-
+    private BufferedImage getPlayerImage(Player p, int size) {
         URL head_image;
 
         if (Bukkit.getServer().getOnlineMode()) {
