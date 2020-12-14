@@ -2,12 +2,17 @@ package com.dolphln.headapi.utils;
 
 import com.dolphln.headapi.HeadAPI;
 import com.dolphln.headapi.core.HeadImage;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.UUID;
 
 public class FaceGatherer {
 
@@ -20,14 +25,28 @@ public class FaceGatherer {
     }
 
     public HeadImage getHeadImage(Player p) {
-        BufferedImage image = getPlayerImage(p);
+        BufferedImage image;
+
+        // SkinsRestorer Support going to be added later
+        /*if (plugin.getSkinGetter().isHook() && plugin.getSkinGetter().playerHasSkin(p)) {
+            plugin.getSkinGetter().getPlayerSkin(p);
+        }*/
+        image = getPlayerImage(p);
 
         return new HeadImage(image, 8);
     }
 
-    private BufferedImage getPlayerImage(Player player) {
+    private BufferedImage getPlayerImage(Player p) {
         int size = 8;
-        URL head_image = getUrl(Integer.toString(size), player.getUniqueId().toString());
+
+        URL head_image;
+        if (Bukkit.getServer().getOnlineMode()) {
+
+            head_image = getUrl(Integer.toString(size), p.getUniqueId().toString());
+        } else {
+            head_image = getUrl(Integer.toString(size), p.getName());
+        }
+
 
         // URL Formatted correctly.
         if (head_image != null) {
@@ -44,17 +63,15 @@ public class FaceGatherer {
         return null;
     }
 
-    private URL getUrl(String size, String uuid) {
+    private URL getUrl(String size, String identifier) {
         try {
             return new URL(head_url
                     .replaceAll("%size%", size)
-                    .replaceAll("%identifier", uuid)
+                    .replaceAll("%identifier%", identifier)
             );
         } catch (Exception e) {
             return null;
         }
     }
-
-
 
 }

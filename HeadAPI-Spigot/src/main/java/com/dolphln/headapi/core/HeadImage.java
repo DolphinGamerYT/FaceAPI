@@ -96,7 +96,6 @@ public class HeadImage {
     }
 
     private Boolean useHTMLColors() {
-        System.out.println(Bukkit.getServer().getClass().getPackage().toString());
         return Bukkit.getServer().getClass().getPackage().toString().contains("1.16");
     }
 

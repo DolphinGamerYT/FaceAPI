@@ -33,7 +33,18 @@ public class SkinGetter {
     }
 
     public void getPlayerSkin(Player p) {
-        Object skin = this.skinsRestorerBukkitAPI.getSkinData(this.skinsRestorerBukkitAPI.getSkinName(p.getName()));
-        System.out.println(skin);
+
+        //Object skinData = this.skinsRestorer.getSkinStorage().getSkinData(this.skinsRestorer.getSkinStorage().getPlayerSkin(p.getName()), true);
+        //System.out.println(this.skinsRestorer.getSkinStorage().getPlayerSkin(p.getName()).toString());
+        System.out.println(this.skinsRestorerBukkitAPI.getSkinData(p.getUniqueId().toString()).toString());
+
+    }
+
+    public Boolean playerHasSkin(Player p) {
+        return this.skinsRestorerBukkitAPI.hasSkin(p.getName());
+    }
+
+    public Boolean isHook() {
+        return isHook;
     }
 }
