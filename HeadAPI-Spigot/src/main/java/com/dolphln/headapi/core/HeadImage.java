@@ -18,7 +18,7 @@ public class HeadImage {
     public HeadImage(BufferedImage image, int size) {
         this.image = image;
         this.size = size;
-        Color[][] chatColors = toChatColorArray(this.image, this.size);
+        Color[][] chatColors = toChatColorArray(this.image);
         lines = toImgMessage(chatColors, BlockChar.BLOCK.getChar());
     }
 
@@ -43,16 +43,23 @@ public class HeadImage {
         return head.substring(0, head.length()-1);
     }
 
-    private Color[][] toChatColorArray(BufferedImage image, int height) {
-        double ratio = (double) image.getHeight() / image.getWidth();
-        int width = (int) (height / ratio);
-        if (width > 10) width = 10;
-        BufferedImage resized = resizeImage(image, width, height);
+    public int getSize() {
+        return this.size;
+    }
 
-        Color[][] chatImg = new Color[resized.getWidth()][resized.getHeight()];
-        for (int x = 0; x < resized.getWidth(); x++) {
-            for (int y = 0; y < resized.getHeight(); y++) {
-                int rgb = resized.getRGB(x, y);
+    public BufferedImage getImage() {
+        return this.image;
+    }
+
+    private Color[][] toChatColorArray(BufferedImage image) {
+        double ratio = (double) image.getHeight() / image.getWidth();
+        int width = (int) (this.size / ratio);
+        if (width > 10) width = 10;
+
+        Color[][] chatImg = new Color[image.getWidth()][image.getHeight()];
+        for (int x = 0; x < image.getWidth(); x++) {
+            for (int y = 0; y < image.getHeight(); y++) {
+                int rgb = image.getRGB(x, y);
                 chatImg[x][y] = new Color(rgb, true);
             }
         }
@@ -89,14 +96,6 @@ public class HeadImage {
         }
 
         return lines;
-    }
-
-    private String colorToHex(Color c) {
-        return String.format("%02x%02x%02x", c.getRed(), c.getGreen(), c.getBlue());
-    }
-
-    private Boolean useHTMLColors() {
-        return Bukkit.getServer().getClass().getPackage().toString().contains("1.16");
     }
 
 }
