@@ -23,10 +23,10 @@ public class HeadImage {
     }
 
     public String getLine(int line) {
-        if (line <= this.size && line >= 0) {
-            return this.lines[line];
-        } else {
+        if (line > this.size && line < 1) {
             return null;
+        } else {
+            return this.lines[line-1];
         }
     }
 
