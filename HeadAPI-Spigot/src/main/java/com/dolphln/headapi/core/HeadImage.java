@@ -19,7 +19,28 @@ public class HeadImage {
         this.image = image;
         this.size = size;
         Color[][] chatColors = toChatColorArray(this.image);
-        lines = toImgMessage(chatColors, BlockChar.BLOCK.getChar());
+        lines = toImgMessage(chatColors, BlockChar.BLOCK.getChar(), false);
+    }
+
+    public HeadImage(BufferedImage image, int size, Boolean useBold) {
+        this.image = image;
+        this.size = size;
+        Color[][] chatColors = toChatColorArray(this.image);
+        lines = toImgMessage(chatColors, BlockChar.BLOCK.getChar(), useBold);
+    }
+
+    public HeadImage(BufferedImage image, int size, BlockChar blockChar) {
+        this.image = image;
+        this.size = size;
+        Color[][] chatColors = toChatColorArray(this.image);
+        lines = toImgMessage(chatColors, blockChar.getChar(), false);
+    }
+
+    public HeadImage(BufferedImage image, int size, BlockChar blockChar, Boolean useBold) {
+        this.image = image;
+        this.size = size;
+        Color[][] chatColors = toChatColorArray(this.image);
+        lines = toImgMessage(chatColors, blockChar.getChar(), useBold);
     }
 
     public String getLine(int line) {
@@ -76,7 +97,7 @@ public class HeadImage {
         return operation.filter(originalImage, null);
     }
 
-    private String[] toImgMessage(Color[][] colors, char imgchar) {
+    private String[] toImgMessage(Color[][] colors, char imgchar, Boolean useBold) {
         lines = new String[colors[0].length];
 
         for (int y = 0; y < colors[0].length; y++) {
@@ -86,8 +107,14 @@ public class HeadImage {
                 Color color = value[y];
 
                 if (color != null) {
-                    line.append(ChatColor.of(value[y]))
-                            .append(imgchar);
+                    if (useBold){
+                        line.append(ChatColor.of(value[y]))
+                                .append(ChatColor.BOLD)
+                                .append(imgchar);
+                    } else {
+                        line.append(ChatColor.of(value[y]))
+                                .append(imgchar);
+                    }
                 } else {
                     line.append(BlockChar.TRANSPARENT_CHAR);
                 }
