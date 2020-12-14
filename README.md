@@ -1,2 +1,2 @@
-# FaceAPI
-An API to get your face in the chat.
+# HeadAPI
+An API to get your head into the chat.
