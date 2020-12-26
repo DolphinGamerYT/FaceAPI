@@ -2,6 +2,8 @@ package com.dolphln.headapi.hooks;
 
 import com.dolphln.headapi.HeadAPI;
 import com.dolphln.headapi.core.HeadImage;
+import com.dolphln.headapi.utils.BlockChar;
+import com.dolphln.headapi.utils.Size;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
 
@@ -107,10 +109,10 @@ public class HeadPlaceholders extends PlaceholderExpansion {
                 return null;
             }
 
-            HeadImage head = plugin.getFaceGatherer().getHeadImage(player, size);
+            HeadImage head = plugin.getFaceGatherer().getHeadImage(player);
 
             if (placeholder.length == 1) {
-                return head.getFormattedLines();
+                return head.getFormattedLines(BlockChar.BLOCK, Size.getSize(size), false);
             } else if (placeholder.length == 2) {
                 int line;
                 try {
@@ -119,7 +121,7 @@ public class HeadPlaceholders extends PlaceholderExpansion {
                     return null;
                 }
 
-                return head.getLine(line);
+                return head.getLine(line, BlockChar.BLOCK, Size.getSize(size), false);
             }
         }
 

@@ -13,7 +13,7 @@ public class HeadCache {
 
     private HeadAPI plugin;
 
-    private HashMap<PlayerHeadData, HeadImage> headCache;
+    private HashMap<UUID, HeadImage> headCache;
     private BukkitTask deleteTask;
 
     public HeadCache(HeadAPI plugin) {
@@ -28,40 +28,16 @@ public class HeadCache {
         }.runTaskTimerAsynchronously(plugin, 0L, 2400L);
     }
 
-    public Boolean isPlayerInCache(Player p, int size) {
-        return headCache.containsKey(new PlayerHeadData(p.getUniqueId(), size));
+    public Boolean isPlayerInCache(Player p) {
+        return headCache.containsKey(p.getUniqueId());
     }
 
-    public HeadImage getPlayerInCache(Player p, int size) {
-        PlayerHeadData player = new PlayerHeadData(p.getUniqueId(), size);
-
-        if (headCache.containsKey(player)) {
-            return headCache.get(player);
-        }
-        return null;
+    public HeadImage getPlayerInCache(Player p) {
+        return headCache.get(p.getUniqueId());
     }
 
     public void addPlayerInCache(Player p, HeadImage head) {
-        headCache.put(new PlayerHeadData(p.getUniqueId(), head.getSize()), head);
-    }
-
-    private static class PlayerHeadData {
-
-        private final UUID uuid;
-        private final int size;
-
-        private PlayerHeadData(UUID uuid, int size) {
-            this.uuid = uuid;
-            this.size = size;
-        }
-
-        public int getSize() {
-            return size;
-        }
-
-        public UUID getUUID() {
-            return uuid;
-        }
+        headCache.put(p.getUniqueId(), head);
     }
 
 }

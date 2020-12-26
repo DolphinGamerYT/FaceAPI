@@ -24,28 +24,28 @@ public class FaceGatherer {
         this.plugin = plugin;
     }
 
-    public HeadImage getHeadImage(Player p, int size) {
+    public HeadImage getHeadImage(Player p) {
         // SkinsRestorer Support going to be added later
         /*if (plugin.getSkinGetter().isHook() && plugin.getSkinGetter().playerHasSkin(p)) {
             plugin.getSkinGetter().getPlayerSkin(p);
         }*/
-        if (plugin.getHeadCache().isPlayerInCache(p, size)) {
-            return plugin.getHeadCache().getPlayerInCache(p, size);
+        if (plugin.getHeadCache().isPlayerInCache(p)) {
+            return plugin.getHeadCache().getPlayerInCache(p);
         }
-        BufferedImage image = getPlayerImage(p, size);
-        HeadImage head = new HeadImage(image, size);
+        BufferedImage image = getPlayerImage(p);
+        HeadImage head = new HeadImage(image);
         plugin.getHeadCache().addPlayerInCache(p, head);
 
         return head;
     }
 
-    private BufferedImage getPlayerImage(Player p, int size) {
+    private BufferedImage getPlayerImage(Player p) {
         URL head_image;
 
         if (Bukkit.getServer().getOnlineMode()) {
-            head_image = getUrl(Integer.toString(size), p.getUniqueId().toString());
+            head_image = getUrl(p.getUniqueId().toString());
         } else {
-            head_image = getUrl(Integer.toString(size), p.getName());
+            head_image = getUrl(p.getName());
         }
 
 
@@ -64,10 +64,10 @@ public class FaceGatherer {
         return null;
     }
 
-    private URL getUrl(String size, String identifier) {
+    private URL getUrl(String identifier) {
         try {
             return new URL(head_url
-                    .replaceAll("%size%", size)
+                    .replaceAll("%size%", Integer.toString(Size.NORMAL.getHeadSize()))
                     .replaceAll("%identifier%", identifier)
             );
         } catch (Exception e) {
