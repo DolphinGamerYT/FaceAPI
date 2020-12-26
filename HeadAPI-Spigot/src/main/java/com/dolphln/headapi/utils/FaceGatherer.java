@@ -20,10 +20,21 @@ public class FaceGatherer {
 
     private String head_url = "https://minepic.org/avatar/%size%/%identifier%";
 
+    /**
+     * Registering an instance of the plugin.
+     *
+     * @param plugin The instance of our plugin.
+     */
     public FaceGatherer(HeadAPI plugin) {
         this.plugin = plugin;
     }
 
+    /**
+     * Get the object HeadImage of a Player.
+     *
+     * @param p Player that we are going to get the HeadImage.
+     * @return HeadImage object of the Player.
+     */
     public HeadImage getHeadImage(Player p) {
         // SkinsRestorer Support going to be added later
         /*if (plugin.getSkinGetter().isHook() && plugin.getSkinGetter().playerHasSkin(p)) {
@@ -39,6 +50,12 @@ public class FaceGatherer {
         return head;
     }
 
+    /**
+     * Get an Image of the player skin's head.
+     *
+     * @param p Player to get the image.
+     * @return BufferedImage of the players head (8x8)
+     */
     private BufferedImage getPlayerImage(Player p) {
         URL head_image;
 
@@ -64,6 +81,12 @@ public class FaceGatherer {
         return null;
     }
 
+    /**
+     * Get a well formatted URL to fetch the player's head image.
+     *
+     * @param identifier Identifier (Can be UUID or Player Name)
+     * @return URL object well formatted.
+     */
     private URL getUrl(String identifier) {
         try {
             return new URL(head_url

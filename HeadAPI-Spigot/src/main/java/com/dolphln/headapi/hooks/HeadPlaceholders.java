@@ -86,6 +86,15 @@ public class HeadPlaceholders extends PlaceholderExpansion {
         return plugin.getDescription().getVersion();
     }
 
+    /**
+     * This is the Placeholders Parser, were the placeholders are splitted and analized.
+     *
+     *
+     * @param player Player to apply the Placeholder
+     * @param identifier Placeholder used
+     * @return Parsed placeholder
+     */
+
     @Override
     public String onPlaceholderRequest(Player player, String identifier){
 

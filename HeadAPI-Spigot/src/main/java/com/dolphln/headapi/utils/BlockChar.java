@@ -14,6 +14,11 @@ public enum BlockChar {
         this.c = c;
     }
 
+    /**
+     * Get the character for the head.
+     *
+     * @return Character for the head.
+     */
     public char getChar() {
         return c;
     }
